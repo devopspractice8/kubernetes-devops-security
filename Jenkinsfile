@@ -24,7 +24,15 @@ pipeline {
 }
 
 
-
+stage('Docker Build and Push') {
+       steps {
+        withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
+           sh 'printenv'
+           sh 'sudo docker build -t devops640/numeric-app:""$GIT_COMMIT"" .'
+           sh 'docker push devops640/numeric-app:""$GIT_COMMIT""'
+         }
+       }
+     }
 
 
 
